@@ -39,15 +39,7 @@ export function ProjectShowcase({ project, reduced, onReturn }: Props) {
               rel="noreferrer"
               className="rounded-full bg-gradient-to-br from-gold to-frost px-[22px] py-3 text-[.88rem] text-navy shadow-[0_8px_26px_rgba(100,181,255,.28)] transition-transform hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
             >
-              View source
-            </a>
-            <a
-              href={project.demo}
-              target="_blank"
-              rel="noreferrer"
-              className="rounded-full border border-frost/35 px-[22px] py-3 text-[.88rem] text-frost transition-all hover:-translate-y-0.5 hover:border-sky hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
-            >
-              Open live demo
+              View
             </a>
           </div>
 
@@ -64,19 +56,32 @@ export function ProjectShowcase({ project, reduced, onReturn }: Props) {
         </header>
 
         <div
-          className="mt-11 flex h-[clamp(200px,38vh,380px)] items-center justify-center rounded-[26px] border border-dashed bg-gradient-to-br from-midnight/65 to-navy/50 text-[.85rem] text-frost/50"
+          className="mt-11 aspect-[16/9] overflow-hidden rounded-[26px] border bg-navy/50"
           style={{ borderColor: `${project.color}44` }}
         >
-          Hero image goes here — 1600×900
+          {project.hero.type === "video" ? (
+            <video
+              src={project.hero.src}
+              poster={project.hero.poster}
+              autoPlay={!reduced}
+              muted
+              loop
+              playsInline
+              controls={reduced}
+              className="h-full w-full object-cover"
+            />
+          ) : project.hero.type === "youtube" ? (
+            <iframe
+              src={project.hero.src}
+              title={`${project.name} demo`}
+              allow="accelerometer; clipboard-write; encrypted-media; picture-in-picture"
+              allowFullScreen
+              className="h-full w-full"
+            />
+          ) : (
+            <img src={project.hero.src} alt={`${project.name} interface`} className="h-full w-full object-cover" />
+          )}
         </div>
-
-        <section className="mt-[54px]">
-          <h3 className="mb-3.5 text-[1.06rem] font-medium">What it does</h3>
-          <p className="m-0 max-w-[66ch] text-[.98rem] leading-[1.72] text-white/65">
-            Placeholder. Two or three sentences on the problem, who it was for, and the decision
-            you are proudest of. Keep it concrete — the constraint, the approach, the result.
-          </p>
-        </section>
 
         <section className="mt-[54px]">
           <h3 className="mb-3.5 text-[1.06rem] font-medium">Key achievements</h3>
@@ -91,20 +96,6 @@ export function ProjectShowcase({ project, reduced, onReturn }: Props) {
               </li>
             ))}
           </ul>
-        </section>
-
-        <section className="mt-[54px]">
-          <h3 className="mb-3.5 text-[1.06rem] font-medium">Screens</h3>
-          <div className="grid gap-3.5 [grid-template-columns:repeat(auto-fit,minmax(220px,1fr))]">
-            {project.gallery.map((shot) => (
-              <figure
-                key={shot}
-                className="m-0 flex aspect-[16/10] items-center justify-center rounded-[18px] border border-dashed border-sky/25 bg-gradient-to-br from-midnight/55 to-navy/40 text-[.8rem] text-frost/45"
-              >
-                {shot}
-              </figure>
-            ))}
-          </div>
         </section>
 
         <div className="h-32" />

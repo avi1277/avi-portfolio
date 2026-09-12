@@ -37,6 +37,7 @@ export interface Constellation {
   demo: string;
   achievements: string[];
   gallery: string[];
+  hero: { type: "video" | "image" | "youtube"; src: string; poster?: string };
 }
 
 export interface PointerState {
