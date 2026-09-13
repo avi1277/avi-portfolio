@@ -16,6 +16,7 @@ import { useStageMachine } from "@/hooks/useStageMachine";
 import { sfx } from "@/lib/audio";
 import { APPROACH, PAN_X, PAN_Y } from "@/lib/constants";
 import { clamp } from "@/lib/math";
+import { ResumeButton } from "@/components/ui/ResumeButton";
 
 export function StellarExperience() {
   const rootRef = useRef<HTMLDivElement>(null);
@@ -218,6 +219,8 @@ export function StellarExperience() {
       </AnimatePresence>
 
       {!onLanding && <Wordmark onClick={backToLanding} />}
+      <ResumeButton />
     </div>
+    
   );
 }
